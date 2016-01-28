@@ -53,7 +53,6 @@ function fetchYoutube(mid){
       var html;
       if(data.items && data.items.length > 0){
         html = Handlebars.templates.youtube(data);
-        console.log(html);
         $("#youtube").append(html);
       }
     });

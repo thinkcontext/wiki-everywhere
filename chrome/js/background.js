@@ -2,8 +2,18 @@
 var urlParseRE = /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
 
 var locale = navigator.language.slice(0,2) || 'en',
-  ruleMap = processRules(),
+  rulesTimeS = localStorage.getItem('rulesTime'),
+  rulesTime = rulesTimeS ? new Date(rulesTimeS) : null,
+  ruleMap,
   sparqlEndpoint = 'https://query.wikidata.org/bigdata/namespace/wdq/sparql';
+
+// check if we have rules
+
+if(! rulesTime || ( Date.now - rulesTime > 3600 * 24 * 7)){
+  fetchRules(function(){ ruleMap = processRules(); });
+} else {
+  ruleMap = processRules();
+}
 
 /*chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
   console.log('Page uses History API and we heard a pushSate/replaceState.',details);
@@ -42,7 +52,7 @@ function applyRule(rule,ps){
   }
 }
 
-function fetchRules(){
+function fetchRules(cb){
 
   var authSparql = "PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX wds: <http://www.wikidata.org/entity/statement/> SELECT ?proptypeLabel ?proptype ?propstat ?propre WHERE {   ?proptype wdt:P1630 ?propstat .   optional { ?proptype wdt:P1793 ?propre }    SERVICE wikibase:label {     bd:serviceParam wikibase:language \"en\" .    } }  ";
 
@@ -50,6 +60,9 @@ function fetchRules(){
     if(res && res.results && res.results.bindings){
       localStorage.setItem('rules',JSON.stringify(res.results.bindings));
       localStorage.setItem('rulesTime',(new Date()).toJSON());
+      if(cb){
+        cb();
+      }
     }
   });
 }
@@ -66,7 +79,7 @@ function getRules(){
 
 function processRules(){
   // Hash the rules on domain
-  
+
   var rules = getRules();
   var ruleHash = {};
   if(!rules){ return; }
