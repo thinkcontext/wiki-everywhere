@@ -1,0 +1,13 @@
+{{#if wikidata}}
+  <b>Instance of</b> {{instance_ofLabel}}<br/>
+  <b>Desc</b> {{desc}}
+  <li><a href="{{wikidata}}">Wikidata</a> </li>
+  {{#if official_website }}
+    <li><a href="{{official_website}}">Official website</a></li>
+  {{/if}}
+
+  <li><a href="{{wikipedia}}">Wikipedia</a></li>
+{{else}}
+  No <a href="https://www.wikidata.org/">Wikidata</a> entry found for this key,
+  maybe you should enter it.
+{{/if}}
