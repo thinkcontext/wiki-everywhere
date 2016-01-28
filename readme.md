@@ -3,6 +3,8 @@
 Wiki Everywhere is a web browser extension which leverages Wikidata in order
 to overlay linked open data (LOD) on the wider web.
 
+![Example using the Rotten Tomatoes entry for the Dark Knight](https://raw.githubusercontent.com/thinkcontext/wiki-everywhere/master/misc/screen-dk.png)
+
 #### How it works
 
 Wiki Everywhere looks at the URL of the current page and attempts to match it against a list of patterns maintained using Wikidata's [formatter URL property](https://www.wikidata.org/wiki/Property:P1630) of authority control identifiers.  If the URL matches, a search of Wikidata is performed using the derived property and key value.  If the search returns a match for an entity then the extension is able to use the data there to perform additional queries of the LOD cloud.
