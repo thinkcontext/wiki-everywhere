@@ -1,22 +1,25 @@
 {
-  "name": "Wikipedia Everywhere",
-  "version": "0.0.1",
-  "description": "Show information from Wikipedia everywhere",
-  "manifest_version": 2,
-  "icons": { "128": "images/wikipedia-favicon-128.png" },
-  "background": { "scripts": [
-    "js/jquery-2.2.0.min.js",
-    "js/background.js"
+    "name": "Wikipedia Everywhere",
+    "version": "0.0.1",
+    "description": "Show information from Wikipedia everywhere",
+    "manifest_version": 2,
+    "icons": { "128": "images/wikipedia-favicon-128.png" },
+    "background": { "scripts": [
+	"js/jquery-2.2.0.min.js",
+	"js/background.js"
     ]},
-  "page_action": {
-    "default_icon": "images/wikipedia-favicon.png",
-    "default_popup": "html/popup.html"
-  },
-  "permissions": [ "webNavigation",
-      "tabs",
-      "https://wikidata.metaphacts.com/sparql" ,
-      "https://*.wikidata.org/*"
-    ],
-  "web_accessible_resources": [ "js/*", "html/*", "css/*", "images/*" ],
-  "content_security_policy": "script-src 'self'; object-src 'self'"
+    "page_action": {
+	"default_icon": "images/wikipedia-favicon.png",
+	"default_popup": "html/popup.html"
+    },
+    "permissions": [ "webNavigation",
+		     "tabs",
+		     "https://wikidata.metaphacts.com/sparql" ,
+		     "https://*.wikidata.org/*",
+		     "https://www.politifact.com/*",
+		     "https://api.votesmart.org/",
+		     "https://www.nytimes.com/*"
+		   ],
+    "web_accessible_resources": [ "js/*", "html/*", "css/*", "images/*" ],
+    "content_security_policy": "script-src 'self'; object-src 'self'"
 }

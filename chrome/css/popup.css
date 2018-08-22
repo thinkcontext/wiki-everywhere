@@ -1,1 +1,4 @@
-.rule { border-width: 2px; }
+.rule {
+    border-width: 2px;
+    width: 400px;
+}
